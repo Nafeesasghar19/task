@@ -1,20 +1,34 @@
+import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import React from 'react'
+import Home from './src/Screens/Home/home'
+import Header from './src/components/Header/header'
+import { Provider } from 'react-redux';
+import { Store, persistor } from './src/redux/config/Index';
+import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor='white' />
+      <Provider store={Store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Header headerTitle={"Home"} />
+          <Home />
+        </PersistGate>
+      </Provider>
+
+    </SafeAreaView>
+
+
+
+  )
 }
+
+export default App
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    flex: 1
+  }
+
+})
